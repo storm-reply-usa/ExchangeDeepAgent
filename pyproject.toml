@@ -1,0 +1,54 @@
+[project]
+name = "labcamp-deep-agents-aws"
+version = "0.1.0"
+description = "Deep Agents on AWS - Reply Xchange labcamp"
+requires-python = ">=3.12"
+dependencies = [
+    "deepagents[quickjs]>=0.7.14",
+    "langchain>=1.4.0",
+    "langchain-core>=1.0.0",
+    "langgraph>=1.2.11",
+    "langchain-aws>=1.7.6",
+    "langsmith>=0.12.5",
+    "langgraph-cli[inmem]>=0.4.31",
+    "langgraph-sdk",
+    "python-dotenv",
+    "boto3[crt]",
+    "bedrock-agentcore",
+    "playwright",
+    "langchain-mcp-adapters",
+    "httpx",
+    "langchain-agentcore-codeinterpreter>=0.0.5",
+    "openevals",
+    "pytest",
+    "pytest-asyncio",
+    "fastapi>=0.115.5",
+    "uvicorn>=0.32.0",
+    "python-pptx>=1.0.2",
+    "aws-cdk-lib>=2.269.0",
+    "constructs>=10.8.1",
+]
+
+[project.optional-dependencies]
+cdk = [
+    "aws-cdk-lib>=2.150.0",
+    "constructs>=10,<11",
+]
+
+[tool.uv]
+package = true
+
+[project.scripts]
+lab = "demo.lab.cli:main"
+
+[tool.setuptools]
+# Only the packages the CLI needs; the rest of the tree is not a library.
+# What the agent needs to run. Everything under demo/ is the presentation and
+# is never installed - the workbench Lambda is built by copying files, and the
+# tests reach it through sys.path.
+packages = ["agent"]
+
+[tool.pytest.ini_options]
+# `infra/build` and `infra/cdk.out` hold third-party wheels staged for Lambda,
+# and some of them ship their own tests.
+testpaths = ["tests"]

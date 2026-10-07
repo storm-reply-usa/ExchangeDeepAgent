@@ -1,0 +1,47 @@
+# Local environment
+.venv/
+.env
+.python-version.local
+
+# Python build artefacts
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+
+# CDK
+cdk.out/
+deploy/infra/build/
+deploy/agentcore/.cli/
+deploy/agentcore/.cache/
+deploy/agentcore/cdk/node_modules/
+deploy/agentcore/cdk/cdk.out/
+deploy/agentcore/.env.local
+!deploy/agentcore/.cli/deployed-state.json
+
+# deploy/runtime/ is a build directory, rebuilt from source on every deploy.
+# Its entrypoint, its dependency list and its policies are not build output.
+deploy/runtime/*
+!deploy/runtime/main.py
+!deploy/runtime/pyproject.toml
+!deploy/runtime/policies/
+!deploy/runtime/policies/*.json
+
+# Local run state: one table's folder, its vote, its attempt counter
+.table
+.vote
+.attempt
+.checkpoints/
+.langgraph_api/
+incident-*.md
+charts/
+deploy/infra/scripts/handout.json
+
+# Local table copies: the workbench makes one per table beside the folder
+# it copies from, because a build step takes files away as well as adding them.
+.tables/
+
+# The AgentCore CLI project is this account, not the lesson: it carries the
+# account id, the runtime ids and the deployed state. Rendered policy with it.
+deploy/agentcore/
+deploy/runtime/policies/.this-account.json

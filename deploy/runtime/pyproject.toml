@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "labcamp-oncall"
+version = "0.1.0"
+description = "The on-call agent, as it runs on AgentCore Runtime"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "aws-opentelemetry-distro ~= 0.18.0",
+    "opentelemetry-instrumentation-langchain >= 0.59.0",
+    "langgraph == 1.2.11",
+    "mcp ~= 1.24.0",
+    "langchain-mcp-adapters >= 0.3.1",
+    "langchain == 1.4.0",
+    "langchain-core == 1.6.3",
+    "bedrock-agentcore == 1.23.0",
+    # The browser is driven over CDP on a raw websocket, so this is not
+    # optional: without it the one tool that leaves the building answers
+    # "unreachable" and the rubric still passes, because it passes on the
+    # call and not on the answer.
+    "websockets >= 12.0",
+    "botocore[crt] >= 1.35.0",
+    "langchain-aws == 1.7.6",
+    "deepagents == 0.7.14",
+    "langchain-agentcore-codeinterpreter >= 0.0.5",
+    "langsmith >= 0.12.5",
+    "boto3 >= 1.35.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
